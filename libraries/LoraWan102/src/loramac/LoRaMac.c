@@ -2617,28 +2617,28 @@ static LoRaMacStatus_t ScheduleTx( void )
     nextChan.Joined = IsLoRaMacNetworkJoined;
     nextChan.LastAggrTx = AggregatedLastTxDoneTime;
 
-	GetPhyParams_t getPhy;
-	PhyParam_t phyParam;
-	getPhy.Attribute = PHY_MIN_TX_DR;
-	phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-	int8_t minDatarate = phyParam.Value;
+	//GetPhyParams_t getPhy;
+	//PhyParam_t phyParam;
+	//getPhy.Attribute = PHY_MIN_TX_DR;
+	//phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+	//int8_t minDatarate = phyParam.Value;
 
-	getPhy.Attribute = PHY_MAX_TX_DR;
-	phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-	int8_t maxDatarate = phyParam.Value;
+	//getPhy.Attribute = PHY_MAX_TX_DR;
+	//phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+	//int8_t maxDatarate = phyParam.Value;
 
     // Select channel
     while ( RegionNextChannel( LoRaMacRegion, &nextChan, &Channel, &dutyCycleTimeOff, &AggregatedTimeOff ) == false ) {
         // Set the default datarate
-        //LoRaMacParams.ChannelsDatarate = LoRaMacParamsDefaults.ChannelsDatarate;
-        if(LoRaMacParams.ChannelsDatarate == minDatarate)
-        {
-            LoRaMacParams.ChannelsDatarate = maxDatarate;
-        }
-        else
-        {
-            LoRaMacParams.ChannelsDatarate --;
-        }
+        LoRaMacParams.ChannelsDatarate = LoRaMacParamsDefaults.ChannelsDatarate;
+        //if(LoRaMacParams.ChannelsDatarate == minDatarate)
+        //{
+        //    LoRaMacParams.ChannelsDatarate = maxDatarate;
+        //}
+        //else
+        //{
+        //    LoRaMacParams.ChannelsDatarate --;
+        //}
         // Update datarate in the function parameters
         nextChan.Datarate = LoRaMacParams.ChannelsDatarate;
     }
